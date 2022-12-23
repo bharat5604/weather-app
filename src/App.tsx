@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "react-loading-skeleton/dist/skeleton.css";
 import "./App.css";
+import { apiCall } from "./utility/apiCall";
 
 type weatherData = {
   name: string;
@@ -25,38 +26,32 @@ function App() {
   const [weather, setWeather] = useState<weatherData>();
   const [loader, setLoader] = useState<boolean>(false);
 
+  // api call on input change
   const handleWeather = async (e: any | undefined) => {
     e.preventDefault();
     setLoader(true);
-    await fetch(
-      `https://api.openweathermap.org/data/2.5/weather?q=${
-        city || "london"
-      }&appid=546b8e7bc2e42c8c92a2572386d39b0a&units=metric`,
-      {
-        method: "GET",
-      }
-    )
-      .then((res) => res.json())
-      .then((result) => {
-        console.log(result);
-        setWeather(result);
-        setLoader(false);
-      });
+    const getData = async () => {
+      const result = await apiCall(city);
+      setWeather(result);
+      setLoader(false);
+    };
+
+    getData();
   };
 
+  // api call on page load
   useEffect(() => {
-    fetch(
-      `https://api.openweathermap.org/data/2.5/weather?q=${"london"}&appid=546b8e7bc2e42c8c92a2572386d39b0a&units=metric`,
-      {
-        method: "GET",
-      }
-    )
-      .then((res) => res.json())
-      .then((result) => {
-        console.log(result);
-        setWeather(result);
-        setLoader(false);
-      });
+    let isCancelled = false;
+    const getData = async () => {
+      const result = await apiCall("london");
+      setWeather(result);
+    };
+
+    getData();
+
+    return () => {
+      isCancelled = true;
+    };
   }, []);
 
   return (
