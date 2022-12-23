@@ -61,7 +61,7 @@ function App() {
 
   return (
     <div className="flex justify-center">
-      <div className="bg-gradient-to-r from-cyan-500 to-blue-500  w-1/2 mx-auto py-6 px-12 rounded-md rounde-xl">
+      <div className="bg-gradient-to-r from-cyan-500 to-blue-500 w-full lg:w-1/2 mx-auto py-6 px-4 lg:px-12 rounded-md rounde-xl">
         <h1 className="text-white text-5xl text-center font-bold">
           Weather in
         </h1>
@@ -80,7 +80,7 @@ function App() {
 
         <div className="p-5 rounded-xl bg-white text-center">
           <h2 className="text-3xl font-bold capitalize">{weather?.name}</h2>
-          <div className="flex w-1/2 mx-auto justify-between mt-6 text-xl fon-bold">
+          <div className="flex lg:w-1/2 mx-auto justify-between mt-6 text-xl fon-bold">
             <h3>{Math.round(weather?.main?.temp || 0)}&deg;C</h3>
             <div className="capitalize">
               <h3 className="font-semibold">
@@ -97,7 +97,7 @@ function App() {
               alt=""
             />
           </div>
-          <div className="flex w-1/2 mx-auto justify-between">
+          <div className="flex lg:w-1/2 mx-auto justify-between">
             <div className="text-xl ">
               <h2 className="font-bold">
                 {Math.round(weather?.main?.feels_like || 0)}&deg;C
